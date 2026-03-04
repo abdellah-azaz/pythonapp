@@ -1,8 +1,19 @@
 from fastapi import FastAPI, HTTPException, Form
+from fastapi.middleware.cors import CORSMiddleware
 from email_service import EmailService
 from datetime import datetime
 
 app = FastAPI()
+
+# Configuration du CORS pour permettre à Flutter Web de communiquer avec l'API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Autorise toutes les origines (utile pour le dev)
+    allow_credentials=True,
+    allow_methods=["*"],  # Autorise toutes les méthodes (GET, POST, etc.)
+    allow_headers=["*"],  # Autorise tous les headers
+)
+
 email_service = EmailService()
 
 @app.get("/")
