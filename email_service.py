@@ -77,10 +77,9 @@ class EmailService:
 
         try:
             print(f"DEBUG: Tentative d'envoi via {self.host}:{self.port} avec l'utilisateur {self.user}...")
-            with smtplib.SMTP(self.host, self.port) as server:
+            with smtplib.SMTP_SSL(self.host, self.port) as server:
                 server.set_debuglevel(1)  # Active les logs détaillés de la conversation SMTP
-                print("DEBUG: Connexion établie, passage en TLS...")
-                server.starttls()
+                print("DEBUG: Connexion SSL établie...")
                 print("DEBUG: Authentification en cours...")
                 server.login(self.user, self.password)
                 print("DEBUG: Envoi du message...")
